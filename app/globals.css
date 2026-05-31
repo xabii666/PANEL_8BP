@@ -29,6 +29,24 @@ html, body {
   background-size: 40px 40px;
 }
 
+/* ── Theme: Color Only Mode (gradient off) ── */
+[data-gradient="off"] .grid-bg {
+  background-image: none !important;
+}
+[data-gradient="off"] .glow-cyan {
+  box-shadow: none !important;
+}
+[data-gradient="off"] .glow-cyan-text {
+  text-shadow: none !important;
+}
+
+/* ── Theme: Accent Color CSS vars (applied via JS data-accent attr) ── */
+:root { --accent: #00c8ff; }
+[data-accent="purple"] { --accent: #7c3aed; }
+[data-accent="green"]  { --accent: #10b981; }
+[data-accent="red"]    { --accent: #ef4444; }
+[data-accent="yellow"] { --accent: #f59e0b; }
+
 @layer components {
   .btn-primary {
     @apply bg-accent-cyan/10 hover:bg-accent-cyan/20 border border-accent-cyan/40
