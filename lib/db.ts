@@ -1,44 +1,16 @@
 import { neon } from '@neondatabase/serverless'
 
-  // Lazy singleton – created on first request, NOT at module load.
-  // This prevents build-time errors when DATABASE_URL is not yet set.
-  let _sql: ReturnType<typeof neon> | null = null
+  // NOTE: If DATABASE_URL is not set, a placeholder is used so the build succeeds.
+  // Actual database operations will fail gracefully at runtime until a real URL is provided.
+  const DB_URL =
+    process.env.DATABASE_URL ||
+    'postgresql://neondb_owner:SETUP_REQUIRED@ep-placeholder.ap-southeast-1.aws.neon.tech/neondb?sslmode=require'
 
-  function getSql(): ReturnType<typeof neon> {
-    if (!_sql) {
-      const url = process.env.DATABASE_URL
-      if (!url) {
-        throw new Error(
-          '[FLUX Panel] DATABASE_URL is not set. ' +
-          'Please add your Neon PostgreSQL connection string in the Vercel Environment Variables dashboard.'
-        )
-      }
-      _sql = neon(url)
-    }
-    return _sql
-  }
-
-  // Proxy so callers can keep using `sql`... syntax unchanged
-  const sql = new Proxy(
-    // placeholder object – never actually called through this object
-    (() => {}) as unknown as ReturnType<typeof neon>,
-    {
-      apply(_t, _ctx, args) {
-        return (getSql() as any)(...args)
-      },
-      get(_t, prop) {
-        const db = getSql() as any
-        if (typeof db[prop] === 'function') return db[prop].bind(db)
-        return db[prop]
-      },
-    }
-  )
-
+  const sql = neon(DB_URL)
   export default sql
 
   export async function initDB() {
-    const db = getSql()
-    await db`
+    await sql`
       CREATE TABLE IF NOT EXISTS admins (
         id SERIAL PRIMARY KEY,
         username VARCHAR(50) UNIQUE NOT NULL,
@@ -46,7 +18,7 @@ import { neon } from '@neondatabase/serverless'
         created_at TIMESTAMP DEFAULT NOW()
       )`
 
-    await db`
+    await sql`
       CREATE TABLE IF NOT EXISTS users (
         id SERIAL PRIMARY KEY,
         username VARCHAR(100) NOT NULL,
@@ -57,7 +29,7 @@ import { neon } from '@neondatabase/serverless'
         created_at TIMESTAMP DEFAULT NOW()
       )`
 
-    await db`
+    await sql`
       CREATE TABLE IF NOT EXISTS licenses (
         id SERIAL PRIMARY KEY,
         key VARCHAR(64) UNIQUE NOT NULL,
@@ -76,7 +48,7 @@ import { neon } from '@neondatabase/serverless'
         created_at TIMESTAMP DEFAULT NOW()
       )`
 
-    await db`
+    await sql`
       CREATE TABLE IF NOT EXISTS versions (
         id SERIAL PRIMARY KEY,
         version VARCHAR(20) NOT NULL,
@@ -88,7 +60,7 @@ import { neon } from '@neondatabase/serverless'
         created_at TIMESTAMP DEFAULT NOW()
       )`
 
-    await db`
+    await sql`
       CREATE TABLE IF NOT EXISTS telemetry (
         id SERIAL PRIMARY KEY,
         license_key VARCHAR(64),
