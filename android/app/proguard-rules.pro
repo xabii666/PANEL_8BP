@@ -1,0 +1,2 @@
+-keep class com.flux.panel.** { *; }
+-dontwarn android.webkit.**
