@@ -4,7 +4,7 @@ async function getStats() {
   try {
     const res = await fetch(`${process.env.NEXT_PUBLIC_PANEL_URL || ''}/api/admin/dashboard`, {
       cache: 'no-store',
-      headers: { 'x-internal': 'true' }
+      headers: { 'x-internal': 'true' },
     })
     if (!res.ok) return null
     return res.json()
@@ -15,11 +15,11 @@ export default async function DashboardPage() {
   const stats = await getStats()
 
   const cards = [
-    { label: 'Total Users',       value: stats?.totalUsers      ?? '—', icon: Users,       color: 'cyan' },
-    { label: 'Active Licenses',   value: stats?.activeLicenses  ?? '—', icon: Key,         color: 'green' },
-    { label: 'Expired',           value: stats?.expiredLicenses ?? '—', icon: Clock,       color: 'yellow' },
-    { label: 'Banned',            value: stats?.bannedLicenses  ?? '—', icon: ShieldCheck, color: 'red' },
-    { label: 'Online (1h)',        value: stats?.onlineNow       ?? '—', icon: Activity,    color: 'purple' },
+    { label: 'Total Users',       value: stats?.totalUsers       ?? '—', icon: Users,       color: 'cyan' },
+    { label: 'Active Licenses',   value: stats?.activeLicenses   ?? '—', icon: Key,         color: 'green' },
+    { label: 'Expired',           value: stats?.expiredLicenses  ?? '—', icon: Clock,       color: 'yellow' },
+    { label: 'Banned',            value: stats?.bannedLicenses   ?? '—', icon: ShieldCheck, color: 'red' },
+    { label: 'Online (1h)',        value: stats?.onlineNow        ?? '—', icon: Activity,    color: 'purple' },
     { label: 'Activations Today', value: stats?.todayActivations ?? '—', icon: TrendingUp,  color: 'cyan' },
   ]
 
@@ -31,6 +31,11 @@ export default async function DashboardPage() {
     purple: 'text-accent-purple border-accent-purple/20 bg-accent-purple/5',
   }
 
+  const iconColor: Record<string, string> = {
+    cyan: 'text-accent-cyan', green: 'text-accent-green',
+    yellow: 'text-accent-yellow', red: 'text-accent-red', purple: 'text-accent-purple',
+  }
+
   return (
     <div className="space-y-6">
       <div>
@@ -38,12 +43,12 @@ export default async function DashboardPage() {
         <p className="text-slate-500 text-sm mt-0.5">FLUX HUD — system overview</p>
       </div>
 
-      <div className="grid grid-cols-2 lg:grid-cols-3 gap-4">
+      <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4">
         {cards.map(({ label, value, icon: Icon, color }) => (
           <div key={label} className={`card border ${colorMap[color]}`}>
             <div className="flex items-center justify-between mb-3">
-              <span className="text-xs text-slate-500 uppercase tracking-wider">{label}</span>
-              <Icon size={14} className={`text-${color === 'cyan' ? 'accent-cyan' : color === 'green' ? 'accent-green' : color === 'yellow' ? 'accent-yellow' : color === 'red' ? 'accent-red' : 'accent-purple'}`} />
+              <span className="text-xs text-slate-500 uppercase tracking-wider leading-tight">{label}</span>
+              <Icon size={14} className={iconColor[color]} />
             </div>
             <div className="text-2xl font-bold text-white">{value}</div>
           </div>
@@ -51,16 +56,16 @@ export default async function DashboardPage() {
       </div>
 
       {stats?.recentActivations && (
-        <div className="card">
+        <div className="card overflow-hidden">
           <h2 className="text-sm font-semibold text-slate-300 mb-4 uppercase tracking-wider">Recent Activations</h2>
           <div className="space-y-2">
             {stats.recentActivations.map((row: { key: string; username: string; device_model: string; last_seen: string }, i: number) => (
-              <div key={i} className="flex items-center justify-between py-2 border-b border-bg-border last:border-0">
-                <div>
-                  <div className="text-sm text-white font-mono">{row.key}</div>
-                  <div className="text-xs text-slate-500">{row.username} · {row.device_model}</div>
+              <div key={i} className="flex items-center justify-between py-2 border-b border-bg-border last:border-0 gap-2">
+                <div className="min-w-0">
+                  <div className="text-sm text-white font-mono truncate">{row.key}</div>
+                  <div className="text-xs text-slate-500 truncate">{row.username} · {row.device_model}</div>
                 </div>
-                <div className="text-xs text-slate-600">{row.last_seen ? new Date(row.last_seen).toLocaleString() : '—'}</div>
+                <div className="text-xs text-slate-600 shrink-0">{row.last_seen ? new Date(row.last_seen).toLocaleString() : '—'}</div>
               </div>
             ))}
           </div>
