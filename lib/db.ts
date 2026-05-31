@@ -83,6 +83,6 @@ export async function initDB() {
     `ALTER TABLE versions ADD COLUMN IF NOT EXISTS download_url VARCHAR(500)`,
   ]
   for (const m of migrations) {
-    try { await sql.unsafe(m) } catch (_) {}
+    try { await sql(m) } catch (_) {}
   }
 }
