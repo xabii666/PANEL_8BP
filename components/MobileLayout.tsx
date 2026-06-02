@@ -20,7 +20,7 @@ export default function MobileLayout({ children }: { children: React.ReactNode }
           </button>
           <div className="flex items-center gap-2">
             <div className="w-6 h-6 rounded bg-accent-cyan/10 border border-accent-cyan/30 flex items-center justify-center text-accent-cyan font-bold text-xs">⬡</div>
-            <span className="text-white font-bold text-sm">FLUX PANEL</span>
+            <span className="text-white font-bold text-sm">CELZ MODZ PANEL</span>
           </div>
         </header>
         <main className="flex-1 p-4 md:p-6 overflow-auto bg-bg-primary grid-bg">
