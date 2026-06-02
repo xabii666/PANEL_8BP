@@ -2,8 +2,8 @@ import type { Metadata } from 'next'
 import './globals.css'
 
 export const metadata: Metadata = {
-  title: 'FLUX PANEL — 8 Ball Pool',
-  description: 'FLUX HUD License & Telemetry Manager',
+  title: 'Celz Modz — 8 Ball Pool',
+  description: 'Celz Modz License & Telemetry Manager',
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
