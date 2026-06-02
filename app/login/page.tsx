@@ -36,7 +36,7 @@ export default function LoginPage() {
           <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-accent-cyan/10 border border-accent-cyan/30 mb-4 glow-cyan">
             <span className="text-2xl">⬡</span>
           </div>
-          <h1 className="text-2xl font-bold text-white glow-cyan-text">FLUX PANEL</h1>
+          <h1 className="text-2xl font-bold text-white glow-cyan-text">CELZ MODZ PANEL</h1>
           <p className="text-slate-500 text-sm mt-1">8 Ball Pool — Admin Console</p>
         </div>
 
@@ -76,7 +76,7 @@ export default function LoginPage() {
         </div>
 
         <p className="text-center text-xs text-slate-600 mt-6">
-          FLUX HUD v1.0 · Panel Control System
+          Celz Modz v1.0 · Panel Control System
         </p>
       </div>
     </div>
