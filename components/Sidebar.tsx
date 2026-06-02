@@ -76,7 +76,7 @@ export default function Sidebar({ isOpen, onClose }: { isOpen?: boolean; onClose
         <div className="flex items-center justify-between mb-3">
           <div className="flex items-center gap-2">
             <div className="w-7 h-7 rounded bg-accent-cyan/10 border border-accent-cyan/30 flex items-center justify-center text-accent-cyan font-bold text-xs">⬡</div>
-            <span className="text-white font-bold text-sm leading-none">FLUX PANEL</span>
+            <span className="text-white font-bold text-sm leading-none">CELZ MODZ PANEL</span>
           </div>
           {onClose && (
             <button
