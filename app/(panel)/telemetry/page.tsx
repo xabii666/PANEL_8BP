@@ -24,7 +24,7 @@ export default function TelemetryPage() {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-xl font-bold text-white">Telemetry</h1>
-          <p className="text-slate-500 text-sm">Device activity logs from FLUX HUD</p>
+          <p className="text-slate-500 text-sm">Device activity logs from Celz Modz</p>
         </div>
         <button onClick={load} className="btn-ghost flex items-center gap-2">
           <RefreshCw size={13} className={loading ? 'animate-spin' : ''} /> Refresh
