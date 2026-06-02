@@ -16,7 +16,7 @@ package com.flux.panel;
 
   public class MainActivity extends AppCompatActivity {
 
-      private static final String PANEL_URL = "https://panel-8bp.vercel.app";
+      private static final String PANEL_URL = "https://panel-8-bp.vercel.app/";
       private WebView webView;
       private ProgressBar progressBar;
 
