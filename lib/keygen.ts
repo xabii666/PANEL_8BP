@@ -2,7 +2,7 @@ import crypto from 'crypto'
 
 export function generateLicenseKey(): string {
   const seg = () => crypto.randomBytes(3).toString('hex').toUpperCase()
-  return `FLUX-${seg()}-${seg()}-${seg()}`
+  return `CMODZ-${seg()}-${seg()}-${seg()}`
 }
 
 export function generateBulkKeys(count: number): string[] {
