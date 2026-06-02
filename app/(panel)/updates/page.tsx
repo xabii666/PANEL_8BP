@@ -62,7 +62,7 @@ export default function UpdatesPage() {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-xl font-bold text-white">Updates</h1>
-          <p className="text-slate-500 text-sm">FLUX HUD version manager · auto-update enabled</p>
+          <p className="text-slate-500 text-sm">Celz Modz Version Manager · Auto Update Enabled</p>
         </div>
         <div className="flex items-center gap-2">
           <button onClick={load} className="btn-ghost flex items-center gap-2 !px-3">
@@ -156,7 +156,7 @@ export default function UpdatesPage() {
             <div className="space-y-3">
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="text-xs text-slate-500 mb-1 block">FLUX Lib Version *</label>
+                  <label className="text-xs text-slate-500 mb-1 block">Celz Modz Lib Version *</label>
                   <input className="input" placeholder="2.0.0" value={form.version} onChange={e => setForm(f => ({ ...f, version: e.target.value }))} />
                 </div>
                 <div>
